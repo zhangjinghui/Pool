@@ -55,7 +55,7 @@ public class UserDAOImpl implements IUserDAO {
 			rs=pstmt.executeQuery();
 			if(rs.next()){
 				Blob blob=rs.getBlob("pic");
-				buffer=blob.getBytes(1, (int)blob.length());
+				buffer=blob.getBytes(1, (int)blob.length());//数据库取图片：rs.getBlob(),再转换为字节数组byte[],直接输出流到前台<img>标签
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -84,7 +84,7 @@ public class UserDAOImpl implements IUserDAO {
 			//blob
 			//blob pstmt.setString(3,user.getUsername());
 			FileInputStream fis=new FileInputStream(user.getPicpath());
-			pstmt.setBinaryStream(3, fis, fis.available());
+			pstmt.setBinaryStream(3, fis, fis.available());//图片存数据库blob：pstmt.setBinaryStream()或pstmt.setObject()
 			flag=pstmt.executeUpdate()>0?true:false;
 		}catch(Exception e){
 			e.printStackTrace();
